@@ -31,9 +31,11 @@ App is supposed to be finished before the end of November 2024
 
 ## Planning
 - [ ] routing
-  - [ ] set-up
+  - [X] set-up
   - [ ] list of promises
   - [ ] promise creation
+    - [X] page with form
+    - [ ] set up list as temp db
   - [ ] promise editing
   - [ ] callendar visualizing how many were kept
 - [ ] database
