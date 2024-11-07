@@ -1,10 +1,13 @@
+import { useNavigate } from 'react-router-dom'
 
 const CallendarPage = () => {
+  const navigate = useNavigate()
+
   return (
     <>
       <h1>Callendar page</h1>
       <hr/>
-      <button>Go back</button>
+      <button onClick={() => navigate(-1)}>Go back</button>
     </>
   )
 }
