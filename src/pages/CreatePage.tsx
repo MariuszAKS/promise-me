@@ -1,25 +1,22 @@
 import { useState } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-
-enum promiseRepetition {
-  Daily = 'Daily',
-  Weekly = 'Weekly',
-  Monthly = 'Monthly',
-  Yearly = 'Yearly',
-}
+import { promise, PromiseRepetition } from '../App'
 
 type promiseForm = {
   question: string,
   description: string,
-  repetition: promiseRepetition,
+  repetition: PromiseRepetition,
 }
 
-const CreatePage = () => {
+
+const CreatePage = ({ promises }: {
+  promises: promise[]
+}) => {
   const navigate: NavigateFunction = useNavigate()
   const [formData, setFormData]: [promiseForm, any] = useState({
     question: '',
     description: '',
-    repetition: promiseRepetition.Daily,
+    repetition: PromiseRepetition.Daily,
   })
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -32,7 +29,18 @@ const CreatePage = () => {
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
 
-      console.log(formData)
+      const newPromise: promise = {
+        question: formData.question,
+        description: formData.description,
+        repetition: formData.repetition,
+        creationDate: new Date(),
+        keptDates: [],
+        currentStreak: 0,
+        longestStreak: 0,
+      }
+
+      promises.push(newPromise)
+      navigate(-1)
     }
   
   return (
@@ -44,10 +52,10 @@ const CreatePage = () => {
         <input name='question' type='text' value={formData.question} onChange={handleChange} placeholder='Question (required)' required/>
         <input name='description' type='text' value={formData.description} onChange={handleChange} placeholder='Description (optional)' />
         <select name='repetition' value={formData.repetition} onChange={handleChange}>
-          <option value={promiseRepetition.Daily}>Daily</option>
-          <option value={promiseRepetition.Weekly}>Weekly</option>
-          <option value={promiseRepetition.Monthly}>Monthly</option>
-          <option value={promiseRepetition.Yearly}>Yearly</option>
+          <option value={PromiseRepetition.Daily}>Daily</option>
+          <option value={PromiseRepetition.Weekly}>Weekly</option>
+          <option value={PromiseRepetition.Monthly}>Monthly</option>
+          <option value={PromiseRepetition.Yearly}>Yearly</option>
         </select>
         <button type='submit'>Create a new promise</button>
       </form>
