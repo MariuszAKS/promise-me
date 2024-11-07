@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import CreatePage from './pages/CreatePage'
+import EditPage from './pages/EditPage'
+import CallendarPage from './pages/CallendarPage'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>Here will be app</h1>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/create" element={<CreatePage />} />
+        <Route path="/edit" element={<EditPage />} />
+        <Route path="/callendar" element={<CallendarPage />} />
+      </Routes>
     </>
   )
 }
