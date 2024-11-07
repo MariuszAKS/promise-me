@@ -1,50 +1,32 @@
-# React + TypeScript + Vite
+# Promise Me
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An app created:
+- with Vite
+- in React
+- using TypeScript
 
-Currently, two official plugins are available:
+## What will it do
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The app is going to allow the user creation of Promises.
 
-## Expanding the ESLint configuration
+They are objects that contain a promise, that the user makes to himself.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Examples:
+- stop smoking
+- exercise every day
+- learn something new every week
 
-- Configure the top-level `parserOptions` property like this:
+#### Promise will contain:
+- question (that user is asked)
+- how often is it asked
+- creation date
+- dates when it was kept
+- current and max streaks
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+It's supposed to aid in creation of positive habits
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Deadline
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+App is supposed to be finished before the end of November 2024
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Planning
