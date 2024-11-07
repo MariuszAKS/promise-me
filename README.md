@@ -30,3 +30,13 @@ It's supposed to aid in creation of positive habits
 App is supposed to be finished before the end of November 2024
 
 ## Planning
+- [ ] routing
+  - [ ] set-up
+  - [ ] list of promises
+  - [ ] promise creation
+  - [ ] promise editing
+  - [ ] callendar visualizing how many were kept
+- [ ] database
+  - [ ] temporary in-code list (and type)
+  - [ ] txt files for each promise
+  - [ ] sqlite3 (maybe)
