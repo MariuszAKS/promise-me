@@ -27,7 +27,29 @@ function App() {
   let promises: promise[] = [
     {
       question: 'Did you drink water?',
-      description: '',
+      description: 'Some description for testing purposes, I\'ll try to make it longer to see how will text be displayed.',
+      repetition: PromiseRepetition.Daily,
+      creationDate: new Date(2024, 11, 7),
+      keptDates: [
+        new Date(2024, 10, 7),
+      ],
+      currentStreak: 1,
+      longestStreak: 1,
+    },
+    {
+      question: 'Did you drink water?',
+      description: 'Some description for testing purposes, I\'ll try to make it longer to see how will text be displayed.',
+      repetition: PromiseRepetition.Daily,
+      creationDate: new Date(2024, 11, 7),
+      keptDates: [
+        new Date(2024, 10, 7),
+      ],
+      currentStreak: 1,
+      longestStreak: 1,
+    },
+    {
+      question: 'Did you drink water?',
+      description: 'Some description for testing purposes, I\'ll try to make it longer to see how will text be displayed.',
       repetition: PromiseRepetition.Daily,
       creationDate: new Date(2024, 11, 7),
       keptDates: [
