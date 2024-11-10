@@ -6,7 +6,7 @@ const specialKeys: string[] = [
   'nextPromiseId',
 ]
 
-const tryInitiateNextPromiseId = async () => {
+export const tryInitiateNextPromiseId = async () => {
   const nextPromiseId = await localforage.getItem(specialKeys[0])
   if (nextPromiseId) return
 
@@ -18,21 +18,24 @@ const tryInitiateNextPromiseId = async () => {
     }
   })
   await localforage.setItem(specialKeys[0], maxPromiseId + 1)
+
+  console.log(nextPromiseId)
 }
 const getNextPromiseId = async () => {
-  return await localforage.getItem(specialKeys[0]) as number
+  return await localforage.getItem(specialKeys[0])
 }
 const incrementNextPromiseId = async () => {
-  localforage.setItem(specialKeys[0], await getNextPromiseId() + 1)
+  localforage.setItem(specialKeys[0], await getNextPromiseId() as number + 1)
 }
 
 
 export const getAllPromises = async () => {
   const promises: PromiseType[] = []
   const keys: string[] = await localforage.keys()
+  console.log(keys)
 
   for (let key of keys) {
-    if (key in specialKeys) continue
+    if (specialKeys.includes(key)) continue
     else {
       const item = await getPromise(key)
       if (item && isPromiseType(item)) {
@@ -44,12 +47,13 @@ export const getAllPromises = async () => {
   return promises
 }
 
-export const getPromise = async (id: number | string) => {
-  return await localforage.getItem(typeof id === 'number' ? id.toString() : id)
+export const getPromise = async (id: string) => {
+  const promise: PromiseType | null = await localforage.getItem(id)
+  return promise
 }
 
 export const addNewPromise = async (newPromise: PromiseType) => {
-  let nextPromiseId: number = await getNextPromiseId()
+  let nextPromiseId: number = await getNextPromiseId() as number
 
   newPromise = {
     ...newPromise,
@@ -59,10 +63,10 @@ export const addNewPromise = async (newPromise: PromiseType) => {
   await incrementNextPromiseId()
 }
 
-export const updatePromise = async (id: number, newData: PromiseType) => {
-  await localforage.setItem(id.toString(), newData)
+export const updatePromise = async (id: string, newData: PromiseType) => {
+  await localforage.setItem(id, newData)
 }
 
-export const removePromise = async (id: number) => {
-  await localforage.removeItem(id.toString())
+export const removePromise = async (id: string) => {
+  await localforage.removeItem(id)
 }
