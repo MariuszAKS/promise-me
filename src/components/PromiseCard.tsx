@@ -1,8 +1,9 @@
-import { promise } from '../App'
+import { PromiseType } from '../CustomTypes'
 import './PromiseCard.css'
 
+
 const PromiseCard = ({ promise, handleOnEdit }: {
-  promise: promise,
+  promise: PromiseType,
   handleOnEdit: any
 }) => {
   return (
