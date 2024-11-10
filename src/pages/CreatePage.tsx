@@ -1,23 +1,25 @@
 import { useState } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
-import { promise, PromiseRepetition } from '../App'
 
-type promiseForm = {
+import { PromiseType, PromiseRepetition } from '../CustomTypes'
+import { addNewPromise } from '../utils/storage'
+
+
+interface promiseForm {
   question: string,
   description: string,
   repetition: PromiseRepetition,
 }
 
 
-const CreatePage = ({ promises }: {
-  promises: promise[]
-}) => {
+const CreatePage = () => {
   const navigate: NavigateFunction = useNavigate()
   const [formData, setFormData]: [promiseForm, any] = useState({
     question: '',
     description: '',
     repetition: PromiseRepetition.Daily,
   })
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
@@ -25,23 +27,23 @@ const CreatePage = ({ promises }: {
     })
   }
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> =
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault()
 
-      const newPromise: promise = {
-        question: formData.question,
-        description: formData.description,
-        repetition: formData.repetition,
-        creationDate: new Date(),
-        keptDates: [],
-        currentStreak: 0,
-        longestStreak: 0,
-      }
-
-      promises.push(newPromise)
-      navigate(-1)
+    const newPromise: PromiseType = {
+      ...formData,
+      id: -1,
+      creationDate: new Date(),
+      keptDates: [],
+      currentStreak: 0,
+      longestStreak: 0,
     }
+
+    addNewPromise(newPromise)
+    navigate(-1)
+  }
   
   return (
     <>
