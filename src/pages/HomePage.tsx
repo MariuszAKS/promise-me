@@ -1,23 +1,33 @@
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import PromiseCard from '../components/PromiseCard'
-import { promise } from '../App'
+import { PromiseType } from '../CustomTypes'
+import { getAllPromises, tryInitiateNextPromiseId } from '../utils/storage'
 
-const Home = ({ promises }: {
-  promises: promise[]
-}) => {
+
+const Home = () => {
   const navigate = useNavigate()
+  const [promises, setPromises] = useState<PromiseType[]>([])
 
-  console.log(promises)
+  useEffect(() => {
+    const fetchPromises = async () => {
+      const fetchedPromises = await getAllPromises()
+      console.log(fetchedPromises)
+      setPromises(fetchedPromises)
+    }
+    fetchPromises()
+  }, [])
 
   return (
     <>
       <h1>Home page</h1>
 
-      <button onClick={() => navigate('/create')}>Create a promise</button>
-      <button onClick={() => navigate('/callendar')}>Open callendar</button>
+      <button onClick={() => navigate('create')}>Create a promise</button>
+      <button onClick={() => navigate('callendar')}>Open callendar</button>
 
-      {promises.map((promise, index) => 
-        <PromiseCard key={index} promise={promise} handleOnEdit={() => navigate('/edit')} />
+      {promises.map((promise) => 
+        <PromiseCard key={promise.id} promise={promise} handleOnEdit={() => navigate(`edit?id=${promise.id}`)} />
       )}
     </>
   )
