@@ -17,7 +17,7 @@ const Home = () => {
       setPromises(fetchedPromises)
     }
     fetchPromises()
-  }, [])
+  })
 
   return (
     <>
