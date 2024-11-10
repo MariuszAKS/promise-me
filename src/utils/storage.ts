@@ -6,6 +6,19 @@ const specialKeys: string[] = [
   'nextPromiseId',
 ]
 
+const tryInitiateNextPromiseId = async () => {
+  const nextPromiseId = await localforage.getItem(specialKeys[0])
+  if (nextPromiseId) return
+
+  const promises: PromiseType[] = await getAllPromises()
+  let maxPromiseId = -1
+  promises.forEach((promise) => {
+    if (promise.id > maxPromiseId) {
+      maxPromiseId = promise.id
+    }
+  })
+  await localforage.setItem(specialKeys[0], maxPromiseId + 1)
+}
 const getNextPromiseId = async () => {
   return await localforage.getItem(specialKeys[0]) as number
 }
@@ -21,7 +34,7 @@ export const getAllPromises = async () => {
   for (let key of keys) {
     if (key in specialKeys) continue
     else {
-      const item = await localforage.getItem(key)
+      const item = await getPromise(key)
       if (item && isPromiseType(item)) {
         promises.push(item)
       }
@@ -29,6 +42,10 @@ export const getAllPromises = async () => {
   }
 
   return promises
+}
+
+export const getPromise = async (id: number | string) => {
+  return await localforage.getItem(typeof id === 'number' ? id.toString() : id)
 }
 
 export const addNewPromise = async (newPromise: PromiseType) => {
